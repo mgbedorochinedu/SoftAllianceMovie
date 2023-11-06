@@ -2,7 +2,7 @@
 {
     public class Movie : BaseEntity
     {
-        public int Id { get; set; }
+        public int MovieId { get; set; }
         public string? Name { get; set; }
         public int Description { get; set; }
         public DateTime ReleaseDate { get; set; }
