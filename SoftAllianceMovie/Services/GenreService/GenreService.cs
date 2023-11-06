@@ -1,8 +1,11 @@
 ﻿using SoftAllianceMovie.Data;
+using SoftAllianceMovie.Dtos.GenreDto;
+using SoftAllianceMovie.Models;
+using SoftAllianceMovie.ServiceResponse;
 
 namespace SoftAllianceMovie.Services.GenreService
 {
-    public class GenreService
+    public class GenreService : IGenreService
     {
         private readonly DataContext _context;
         public GenreService(DataContext context)
@@ -11,37 +14,25 @@ namespace SoftAllianceMovie.Services.GenreService
         }
 
 
-        public async Task<BaseResponse> AddProgramDetail(ProgramDetailDto programDetailDto)
+        public async Task<BaseResponse> AddGenre(AddGenreDto addGenreDto)
         {
             try
             {
-
-                ProgramDetail programDetail = new ProgramDetail()
+                Genre genre = new Genre()
                 {
-                    Title = programDetailDto.Title,
-                    ProgramSummary = programDetailDto.ProgramSummary,
-                    ProgramDescription = programDetailDto.ProgramDescription,
-                    ProgramBenefit = programDetailDto.ProgramBenefit,
-                    ApplicationCriteria = programDetailDto.ApplicationCriteria,
-                    ProgramType = programDetailDto.ProgramType,
-                    ProgramStartDate = programDetailDto.ProgramStartDate,
-                    ApplicationOpenDate = programDetailDto.ApplicationOpenDate,
-                    ApplicationCloseDate = programDetailDto.ApplicationCloseDate,
-                    Duration = programDetailDto.Duration,
-                    ProgramLocation = programDetailDto.ProgramLocation,
-                    MinQualification = programDetailDto.MinQualification,
-                    MaxAppNumber = programDetailDto.MaxAppNumber,
+                    GenreName = addGenreDto.GenreName,
+                    MovieId = addGenreDto.MovieId,
                     CreatedAt = DateTime.UtcNow
                 };
-                await _context.AddAsync(programDetail);
+                await _context.AddAsync(genre);
                 var isSaved = await _context.SaveChangesAsync();
                 if (isSaved > 0)
                 {
-                    return new BaseResponse(true, null, "Successfully saved Program Details");
+                    return new BaseResponse(true, null, "Successfully saved Genre");
                 }
                 else
                 {
-                    return new BaseResponse(false, null, "An error occur trying to save Program Details");
+                    return new BaseResponse(false, null, "An error occur trying to save Genre");
                 }
             }
             catch (Exception ex)
