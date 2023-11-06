@@ -10,11 +10,14 @@ namespace SoftAllianceMovie.Dtos.MovieDto
         public string? Description { get; set; }
         [Required(ErrorMessage = "Release Date is required")]
         public DateTime ReleaseDate { get; set; }
-        [Required(ErrorMessage = "Rating is required")]
+        [Required]
+        [Range(1, 5)]
         public double Rating { get; set; }
         [Required(ErrorMessage = "Ticket Price is required")]
         public decimal TicketPrice { get; set; }
+        [Required(ErrorMessage = "Country is required")]
         public string? Country { get; set; }
-        public string? PhotoUrl { get; set; } //This will be needing an Azure Blob Storage, to be able to save the Image URL
+        [Required(ErrorMessage = "Photo URL is required")]
+        public string? PhotoUrl { get; set; } //This will require an Azure Blob Storage, to be able to save the Image URL on the database
     }
 }

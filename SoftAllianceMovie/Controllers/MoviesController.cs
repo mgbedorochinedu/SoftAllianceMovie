@@ -16,7 +16,11 @@ namespace SoftAllianceMovie.Controllers
             _movieService = movieService;
         }
 
-
+        /// <summary>
+        /// Adds a movie to the database.
+        /// </summary>
+        /// <param name="addMovieDto">The data required to add a movie.</param>
+        /// <returns>Returns message 'Successfully saved Movie.' if successful, or an error message "An error occur trying to save Movie." if the operation fails.</returns>
         [HttpPost("add-movie")]
         public async Task<IActionResult> AddMovie([FromBody] AddMovieDto addMovieDto)
         {

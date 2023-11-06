@@ -16,6 +16,11 @@ namespace SoftAllianceMovie.Controllers
             _genreService = genreService;
         }
 
+        /// <summary>
+        /// Adds a Genre to the database.
+        /// </summary>
+        /// <param name="addGenreDto">The data required to add a movie.</param>
+        /// <returns>Returns message 'Successfully saved Genre.' if successful, or an error message "An error occur trying to save Genre." if the operation fails.</returns>
         [HttpPost("add-genre")]
         public async Task<IActionResult> AddGenre([FromBody] AddGenreDto addGenreDto)
         {
