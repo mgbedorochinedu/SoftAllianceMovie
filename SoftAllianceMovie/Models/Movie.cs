@@ -4,7 +4,7 @@
     {
         public int MovieId { get; set; }
         public string? Name { get; set; }
-        public int Description { get; set; }
+        public string? Description { get; set; }
         public DateTime ReleaseDate { get; set; }
         public double Rating { get; set; }
         public decimal TicketPrice { get; set; }

@@ -1,6 +1,10 @@
-﻿namespace SoftAllianceMovie.Services.MovieService
+﻿using SoftAllianceMovie.Dtos.MovieDto;
+using SoftAllianceMovie.ServiceResponse;
+
+namespace SoftAllianceMovie.Services.MovieService
 {
-    public class IMovieService
+    public interface IMovieService
     {
+        Task<BaseResponse> AddMovie(AddMovieDto addMovieDto);
     }
 }
