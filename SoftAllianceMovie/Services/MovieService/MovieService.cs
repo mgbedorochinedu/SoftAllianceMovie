@@ -38,7 +38,7 @@ namespace SoftAllianceMovie.Services.MovieService
                 }
                 else
                 {
-                    return new BaseResponse(false, null, "An error occur trying to save Movie");
+                    return new BaseResponse(false, null, "An error occur trying to save Movie.");
                 }
             }
             catch (Exception ex)
