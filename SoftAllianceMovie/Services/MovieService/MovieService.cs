@@ -123,7 +123,7 @@ namespace SoftAllianceMovie.Services.MovieService
 
                 if (movie == null)
                 {
-                    return new BaseResponse(true, null, $"No Movie with Movid Id: {movieId} found.");
+                    return new BaseResponse(true, null, $"No Movie with Movie Id: {movieId} found.");
                 }
                 _context.Movies.Remove(movie);
                 var isSaved = await _context.SaveChangesAsync();

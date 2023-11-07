@@ -82,12 +82,11 @@ namespace SoftAllianceMovie.Controllers
 
 
         /// <summary>
-        /// Get list of movie records.
+        /// Get list of movies records.
         /// </summary>
-        /// <param name="movieId"></param>
         //// <returns>Returns message 'Successully get all Movies.' and list of data. </returns>
         [HttpGet("get-all-movies")]
-        public async Task<IActionResult> GetAllMovie()
+        public async Task<IActionResult> GetAllMovies()
         {
             var response = await _movieService.GetAllMovies();
             return Ok(response);

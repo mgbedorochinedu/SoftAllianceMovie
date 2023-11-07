@@ -6,5 +6,8 @@ namespace SoftAllianceMovie.Services.GenreService
     public interface IGenreService
     {
         Task<BaseResponse> AddGenre(AddGenreDto addGenreDto);
+        Task<BaseResponse> GetAllGenres();
+        Task<BaseResponse> DeleteGenre(int genreId);
+        Task<BaseResponse> GetGenre(int genreId);
     }
 }
