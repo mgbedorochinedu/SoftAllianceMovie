@@ -40,7 +40,7 @@ namespace SoftAllianceMovie.Controllers
         }
 
         [HttpGet("get-movie")]
-        public async Task<IActionResult> PreviewDetails([FromQuery] int movieId)
+        public async Task<IActionResult> GetMovie([FromQuery] int movieId)
         {
             var response = await _movieService.GetMovie(movieId);
             return Ok(response);
