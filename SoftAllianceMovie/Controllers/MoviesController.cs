@@ -38,7 +38,11 @@ namespace SoftAllianceMovie.Controllers
                 return StatusCode(500, ex);
             }           
         }
-
+        /// <summary>
+        /// Get single Movie record on the database.
+        /// </summary>
+        /// <param name="movieId"></param>
+        /// <returns>Return a single record of movie with list of Genres </returns>
         [HttpGet("get-movie")]
         public async Task<IActionResult> GetMovie([FromQuery] int movieId)
         {
@@ -46,6 +50,12 @@ namespace SoftAllianceMovie.Controllers
             return Ok(response);
         }
 
+
+        /// <summary>
+        /// Update a movie record.
+        /// </summary>
+        /// <param name="movieId"></param>
+        //// <returns>Returns message 'Movies updated successfully.' if successful, or an error message "An error trying to update Movie" if the operation fails.</returns>
         [HttpPut("update-movie")]
         public async Task<IActionResult> UpdateMovie([FromQuery] int movieId, [FromBody] UpdateMovieDto updateMovieDto)
         {
@@ -54,6 +64,11 @@ namespace SoftAllianceMovie.Controllers
         }
 
 
+        /// <summary>
+        /// Delete a movie record.
+        /// </summary>
+        /// <param name="movieId"></param>
+        //// <returns>Returns message 'Movie Deleted successfully.' if successful, or an error message "An error occur trying to Delete Movie." if the operation fails.</returns>
         [HttpDelete("delete-movie/{movieId}")]
         public async Task<IActionResult> DeleteMovie(int movieId)
         {
@@ -66,6 +81,17 @@ namespace SoftAllianceMovie.Controllers
         }
 
 
+        /// <summary>
+        /// Get list of movie records.
+        /// </summary>
+        /// <param name="movieId"></param>
+        //// <returns>Returns message 'Successully get all Movies.' and list of data. </returns>
+        [HttpGet("get-all-movie")]
+        public async Task<IActionResult> GetAllMovie()
+        {
+            var response = await _movieService.GetAllMovies();
+            return Ok(response);
+        }
 
 
 

@@ -1,4 +1,5 @@
-﻿using SoftAllianceMovie.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SoftAllianceMovie.Data;
 using SoftAllianceMovie.Dtos.GenreDto;
 using SoftAllianceMovie.Dtos.MovieDto;
 using SoftAllianceMovie.Models;
@@ -92,13 +93,14 @@ namespace SoftAllianceMovie.Services.MovieService
                     if (dbMovie == null)
                         return new BaseResponse(false, null, $"No Movie with MovieId: {movieId} found.");
 
-                    dbMovie.Name = updateMovieDto.Name;
-                    dbMovie.Description = updateMovieDto.Description;
+                    dbMovie.Name = updateMovieDto.Name ?? dbMovie.Name;
+                    dbMovie.Description = updateMovieDto.Description ?? dbMovie.Description;
                     dbMovie.ReleaseDate = updateMovieDto.ReleaseDate;
-                    dbMovie.Rating = updateMovieDto.Rating;
+                    dbMovie.Rating = updateMovieDto.Rating ;
                     dbMovie.TicketPrice = updateMovieDto.TicketPrice;
-                    dbMovie.Country = updateMovieDto.Country;
-                    dbMovie.PhotoUrl = updateMovieDto.PhotoUrl;
+                    dbMovie.Country = updateMovieDto.Country ?? dbMovie.Country;
+                    dbMovie.PhotoUrl = updateMovieDto.PhotoUrl ?? dbMovie.PhotoUrl;
+                    dbMovie.UpdatedAt = DateTime.UtcNow;
 
                     _context.Update(dbMovie);
                     var isSaved = await _context.SaveChangesAsync();
@@ -138,8 +140,13 @@ namespace SoftAllianceMovie.Services.MovieService
             {
                 return new BaseResponse(false, ex, "An unexpected error occurred.");
             }
+        }
 
 
+        public async Task<BaseResponse> GetAllMovies()
+        {
+            List<Movie> dbMovies = await _context.Movies.ToListAsync();
+            return new BaseResponse(true, dbMovies, "Successully get all Movies.");
         }
 
 
@@ -147,7 +154,6 @@ namespace SoftAllianceMovie.Services.MovieService
 
 
 
-
     }
-    }
+}
 
