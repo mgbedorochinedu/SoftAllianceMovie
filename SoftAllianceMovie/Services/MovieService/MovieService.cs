@@ -113,8 +113,41 @@ namespace SoftAllianceMovie.Services.MovieService
             }
 
 
+        public async Task<BaseResponse> DeleteMovie(int movieId)
+        {
+            try
+            {
+                Movie movie =  _context.Movies.FirstOrDefault(m => m.MovieId == movieId);
+
+                if (movie == null)
+                {
+                    return new BaseResponse(true, null, $"No Movie with Movid Id: {movieId} found.");
+                }
+                _context.Movies.Remove(movie);
+                var isSaved = await _context.SaveChangesAsync();
+                if (isSaved > 0)
+                {
+                    return new BaseResponse(true, null, "Movie Deleted successfully.");
+                }
+                else
+                {
+                    return new BaseResponse(false, null, "An error occur trying to Delete Movie.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse(false, ex, "An unexpected error occurred.");
+            }
 
 
         }
+
+
+
+
+
+
+
+    }
     }
 

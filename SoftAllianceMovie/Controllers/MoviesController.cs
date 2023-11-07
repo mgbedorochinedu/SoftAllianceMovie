@@ -54,7 +54,16 @@ namespace SoftAllianceMovie.Controllers
         }
 
 
-
+        [HttpDelete("delete-movie/{movieId}")]
+        public async Task<IActionResult> DeleteMovie(int movieId)
+        {
+            var response = await _movieService.DeleteMovie(movieId);
+            if (response == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
 
 
 

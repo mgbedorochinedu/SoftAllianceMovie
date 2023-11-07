@@ -8,5 +8,6 @@ namespace SoftAllianceMovie.Services.MovieService
         Task<BaseResponse> AddMovie(AddMovieDto addMovieDto);
         Task<BaseResponse> GetMovie(int movieId);
         Task<BaseResponse> UpdateMovie(int movieId, UpdateMovieDto updateMovieDto);
+        Task<BaseResponse> DeleteMovie(int movieId);
     }
 }
