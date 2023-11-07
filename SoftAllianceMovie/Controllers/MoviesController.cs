@@ -39,6 +39,21 @@ namespace SoftAllianceMovie.Controllers
             }           
         }
 
+        [HttpGet("get-movie")]
+        public async Task<IActionResult> PreviewDetails([FromQuery] int movieId)
+        {
+            var response = await _movieService.GetMovie(movieId);
+            return Ok(response);
+        }
+
+        [HttpPut("update-movie")]
+        public async Task<IActionResult> UpdateMovie([FromQuery] int movieId, [FromBody] UpdateMovieDto updateMovieDto)
+        {
+            var response = await _movieService.UpdateMovie(movieId, updateMovieDto);
+            return Ok(response);
+        }
+
+
 
 
 

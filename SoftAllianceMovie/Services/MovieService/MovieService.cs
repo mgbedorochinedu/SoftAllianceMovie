@@ -1,4 +1,5 @@
 ﻿using SoftAllianceMovie.Data;
+using SoftAllianceMovie.Dtos.GenreDto;
 using SoftAllianceMovie.Dtos.MovieDto;
 using SoftAllianceMovie.Models;
 using SoftAllianceMovie.ServiceResponse;
@@ -48,7 +49,72 @@ namespace SoftAllianceMovie.Services.MovieService
         }
 
 
+        public async Task<BaseResponse> GetMovie(int movieId)
+        {
+            try
+            {
+                var dbMovie = _context.Movies.Where(x => x.MovieId == movieId).Select(movie => new GetMovieDto()
+                {
+                    Name = movie.Name,
+                    Description = movie.Description,
+                    ReleaseDate = movie.ReleaseDate,
+                    Rating = movie.Rating,
+                    TicketPrice = movie.TicketPrice,
+                    Country = movie.Country,
+                    PhotoUrl = movie.PhotoUrl,
+                }).FirstOrDefault();
+                if (dbMovie == null)
+                    return new BaseResponse(false, null, $"No Movie with MovieId: {movieId} found.");
+
+                var genres = _context.Genres.Where(x => x.MovieId == movieId).Select(genre => new GetGenreDto
+                {
+                    GenreName = genre.GenreName,
+                }).ToList();
+
+                if (!genres.Any())
+                    return new BaseResponse(false, null, $"No Genre linked with MovieId: {movieId} found.");
+
+                var data = new { dbMovie, genres };
+
+                return new BaseResponse(true, data, "Succesfully fetch data");
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse(false, ex, "An unexpected error occurred.");
+            }
+        }
+            public async Task<BaseResponse> UpdateMovie(int movieId, UpdateMovieDto updateMovieDto)
+            {
+                try
+                {
+                    var dbMovie = _context.Movies.FirstOrDefault(x => x.MovieId == movieId);
+                    if (dbMovie == null)
+                        return new BaseResponse(false, null, $"No Movie with MovieId: {movieId} found.");
+
+                    dbMovie.Name = updateMovieDto.Name;
+                    dbMovie.Description = updateMovieDto.Description;
+                    dbMovie.ReleaseDate = updateMovieDto.ReleaseDate;
+                    dbMovie.Rating = updateMovieDto.Rating;
+                    dbMovie.TicketPrice = updateMovieDto.TicketPrice;
+                    dbMovie.Country = updateMovieDto.Country;
+                    dbMovie.PhotoUrl = updateMovieDto.PhotoUrl;
+
+                    _context.Update(dbMovie);
+                    var isSaved = await _context.SaveChangesAsync();
+                    if (isSaved > 0)
+                        return new BaseResponse(true, null, "Movies updated successfully");
+                    return new BaseResponse(false, null, "An error trying to update Movie");
+                }
+                catch (Exception ex)
+                {
+                    return new BaseResponse(false, ex, "An unexpected error occurred.");
+                }
+            }
 
 
+
+
+        }
     }
-}
+
